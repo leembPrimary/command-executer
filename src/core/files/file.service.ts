@@ -2,7 +2,7 @@ import {dirname, join, isAbsolute} from 'path';
 import {promises} from "fs";
 
 export class FileService {
-    private async isExist(path: string) {
+    private async isExist(path: string): Promise<boolean> {
         try {
             await promises.stat(path);
             return true;
@@ -18,7 +18,7 @@ export class FileService {
         return join(dirname(path) + '/' + name + '.' + ext);
     }
 
-    async deleteFileIfExists(path: string) {
+    async deleteFileIfExists(path: string): Promise<void> {
         if (await this.isExist(path)) {
             promises.unlink(path);
         }
